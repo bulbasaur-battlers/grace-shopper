@@ -23,6 +23,8 @@ const Product = db.define('product', {
     validate: {
       isUrl: true,
     },
+    defaultValue:
+      'https://skotfashion.com/wp-content/uploads/2018/02/placeholder.jpg',
   },
 
   description: {
