@@ -2,8 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchProducts } from '../redux/products'
 
+
 function Product() {
+
     const products = [{ name: 'shirt', price: 2.30, imageUrl: 'https://clipartix.com/wp-content/uploads/2016/05/T-shirt-blank-shirt-clip-art-free-vector-in-open-office-drawing-svg.jpg', desription: 'this is a test' }, { name: 'shirt', price: 2.30, imageUrl: 'https://clipartix.com/wp-content/uploads/2016/05/T-shirt-blank-shirt-clip-art-free-vector-in-open-office-drawing-svg.jpg', desription: 'this is a test' }, { name: 'Shirt', price: 2.32, imageUrl: 'https://clipartix.com/wp-content/uploads/2016/05/T-shirt-blank-shirt-clip-art-free-vector-in-open-office-drawing-svg.jpg', desription: 'this is a test' }, { name: 'Shirt', price: 2.30, imageUrl: 'https://clipartix.com/wp-content/uploads/2016/05/T-shirt-blank-shirt-clip-art-free-vector-in-open-office-drawing-svg.jpg', desription: 'this is a test' }, { name: 'shirt', price: 2.30, imageUrl: 'https://clipartix.com/wp-content/uploads/2016/05/T-shirt-blank-shirt-clip-art-free-vector-in-open-office-drawing-svg.jpg', desription: 'this is a test' }]
+
+    useEffect(() => { }, [])
 
     if (products.length === 0) {
         return (<h1>No Items To Sell!</h1>)
