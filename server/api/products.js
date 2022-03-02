@@ -8,7 +8,7 @@ router.get('/', async (req, res, next) => {
     const products = await Product.findAll({});
     res.json(products);
   } catch (err) {
-    console.err(err);
+    console.error(err);
     next(err);
   }
 });
@@ -23,7 +23,7 @@ router.get('/:id', async (req, res, next) => {
       res.json(product);
     }
   } catch (err) {
-    console.err(err);
+    console.error(err);
     next(err);
   }
 });
