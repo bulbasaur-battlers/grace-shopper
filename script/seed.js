@@ -21,9 +21,9 @@ async function seed() {
   console.log(User);
   console.log(Product);
   const products = await Promise.all([
-    Product.create({ name: 'Shirt', price: 10 }),
-    Product.create({ name: 'Pants', price: 10 }),
-    Product.create({ name: 'Sweater', price: 10 }),
+    Product.create({ name: 'Shirt', pennies: 200 }),
+    Product.create({ name: 'Pants', pennies: 250 }),
+    Product.create({ name: 'Sweater', pennies: 209 }),
   ]);
 
   console.log(`seeded ${users.length} users`);
