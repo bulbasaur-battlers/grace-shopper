@@ -26,6 +26,16 @@ p{
   margin-right: 10px
 }
 
+.navBar{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navContent{
+  display: flex;
+}
+
 .allProd{
   display: flex;
   flex-wrap: wrap;
