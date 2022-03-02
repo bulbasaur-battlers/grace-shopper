@@ -20,7 +20,7 @@ function SingleProduct() {
                 <img src={product.imageUrl} width="390" height="425" />
                 <div className="singleProductInfo">
                     <h2>{product.name}</h2>
-                    <p>${product.price.toFixed(2)}</p>
+                    <p>${product.price}</p>
                     <button id="SPbutton" className='button-60'>Add To Cart</button>
                     <p id='descriptor'>{product.description}</p>
                 </div>

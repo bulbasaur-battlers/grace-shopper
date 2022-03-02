@@ -28,7 +28,7 @@ function Product() {
                                 <div className="productInfo">
                                     <div>
                                         <p>{current.name}</p>
-                                        <p>${current.price.toFixed(2)}</p>
+                                        <p>${current.price}</p>
                                     </div>
                                     <button className="button-60">Add To Cart</button>
                                 </div>
