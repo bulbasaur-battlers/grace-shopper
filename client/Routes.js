@@ -5,6 +5,7 @@ import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import Product from './components/Products';
 import { me } from './store'
+import SingleProduct from './components/SingleProduct';
 
 /**
  * COMPONENT
@@ -28,6 +29,7 @@ const Routes = () => {
       ) : (
         <Switch>
           <Route path='/' exact ><Product /></Route>
+          <Route exact path='/products/:productId'><SingleProduct /></Route>
           <Route path="/login"><Login /></Route>
           <Route path="/signup"><Signup /></Route>
         </Switch>

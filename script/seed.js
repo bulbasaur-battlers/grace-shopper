@@ -21,10 +21,6 @@ async function seed() {
     isAdmin: faker.datatype.boolean(),
   });
 
-  const usersArray = [];
-  for (let i = 0; i < 10; i++) {
-    usersArray.push(createFakeUser());
-  }
   const createFakeProduct = () => ({
     name: faker.commerce.product(),
     pennies: faker.datatype.number({min: 1, max: 100000}),
@@ -32,16 +28,15 @@ async function seed() {
     description: faker.lorem.lines(3),
   });
 
+  const usersArray = [];
+  for (let i = 0; i < 10; i++) {
+    usersArray.push(createFakeUser());
+  }
+
   const productsArray = [];
   for (let i = 0; i < 30; i++) {
     productsArray.push(createFakeProduct());
   }
-
-  const products = await Promise.all(
-    productsArray.map((current) => {
-      return Product.create(current);
-    })
-  );
 
   const users = await Promise.all(
     usersArray.map((current) => {
@@ -49,13 +44,14 @@ async function seed() {
     })
   );
 
+  const products = await Promise.all(
+    productsArray.map((current) => {
+      return Product.create(current);
+    })
+  );
+
   console.log(User);
   console.log(Product);
-  const products = await Promise.all([
-    Product.create({ name: "Shirt", price: 10 }),
-    Product.create({ name: "Pants", price: 10 }),
-    Product.create({ name: "Sweater", price: 10 }),
-  ]);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${products.length} products`);
