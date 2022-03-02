@@ -25,11 +25,23 @@ async function seed() {
   for (let i = 0; i < 10; i++) {
     usersArray.push(createFakeUser());
   }
+  const createFakeProduct = () => ({
+    name: faker.commerce.product(),
+    pennies: faker.datatype.number({min: 1, max: 100000}),
+    imageUrl: faker.image.fashion(),
+    description: faker.lorem.lines(3),
+  });
 
-  // const productsArray = [];
-  // for (let i = 0; i < 30; i++) {
-  //   productsArray.push(createFakeProduct());
-  // }
+  const productsArray = [];
+  for (let i = 0; i < 30; i++) {
+    productsArray.push(createFakeProduct());
+  }
+
+  const products = await Promise.all(
+    productsArray.map((current) => {
+      return Product.create(current);
+    })
+  );
 
   const users = await Promise.all(
     usersArray.map((current) => {
