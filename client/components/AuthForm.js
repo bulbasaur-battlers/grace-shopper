@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import {authenticate} from '../store'
+import { authenticate } from '../store'
 
 /**
  * COMPONENT
@@ -41,5 +41,5 @@ const AuthForm = ({ name, displayName }) => {
   )
 }
 
-export const Login = <AuthForm name="login" displayName="Login" />
-export const Signup = <AuthForm name="signup" displayName="Sign Up" />
+export const Login = () => <AuthForm name="login" displayName="Login" />
+export const Signup = () => <AuthForm name="signup" displayName="Sign Up" />
