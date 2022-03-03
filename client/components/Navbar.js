@@ -10,7 +10,6 @@ const Navbar = () => {
   return (
     <div>
       <div className="navBar">
-
         <Link to="/">
           <img src="https://www.pngkey.com/png/detail/239-2398314_logo-store-png-e-store.png" width='150' height='48'></img>
         </Link>
