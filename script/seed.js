@@ -17,7 +17,7 @@ async function seed() {
   const createFakeUser = () => ({
     username: faker.internet.userName(),
     email: faker.internet.email(),
-    password: faker.internet.password(10),
+    password: '123',
     isAdmin: faker.datatype.boolean(),
   });
 
