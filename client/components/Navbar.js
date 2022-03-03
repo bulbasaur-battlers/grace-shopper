@@ -4,8 +4,15 @@ import { Link } from 'react-router-dom';
 import { logout } from '../store';
 
 const Navbar = () => {
+<<<<<<< HEAD
   const isLoggedIn = useSelector((state) => !!state.auth.id);
   const dispatch = useDispatch();
+=======
+  const isLoggedIn = useSelector(state => !!state.auth.id)
+  const isAdmin = useSelector(state => state.auth.isAdmin)
+  console.log(isAdmin)
+  const dispatch = useDispatch()
+>>>>>>> origin/main
 
   return (
     <div>
@@ -18,18 +25,25 @@ const Navbar = () => {
         </Link>
         <nav>
           {isLoggedIn ? (
-            <div>
+            <div className='navContent'>
               {/* The navbar will show these links after you log in */}
+              {isAdmin &&
+                <Link to="/users">All User Data</Link>
+              }
               <Link to="/home">Home</Link>
               <a href="#" onClick={() => dispatch(logout())}>
                 Logout
               </a>
+<<<<<<< HEAD
               <Link to="/cart">
                 <img
                   src="https://media.istockphoto.com/vectors/shopping-cart-icon-isolated-on-white-background-vector-id1206806317?k=20&m=1206806317&s=612x612&w=0&h=waK8qOHV2Fgz2ntEWHWBQtXpNDAQ_wdhd4tkTUz6tfE="
                   width="48"
                   height="48"></img>
               </Link>
+=======
+              <img src="https://media.istockphoto.com/vectors/shopping-cart-icon-isolated-on-white-background-vector-id1206806317?k=20&m=1206806317&s=612x612&w=0&h=waK8qOHV2Fgz2ntEWHWBQtXpNDAQ_wdhd4tkTUz6tfE=" width="48" height="48"></img>
+>>>>>>> origin/main
             </div>
           ) : (
             <div className="navContent">
