@@ -5,6 +5,8 @@ import { logout } from '../store'
 
 const Navbar = () => {
   const isLoggedIn = useSelector(state => !!state.auth.id)
+  const isAdmin = useSelector(state => state.auth.isAdmin)
+  console.log(isAdmin)
   const dispatch = useDispatch()
 
   return (
@@ -15,12 +17,16 @@ const Navbar = () => {
         </Link>
         <nav>
           {isLoggedIn ? (
-            <div>
+            <div className='navContent'>
               {/* The navbar will show these links after you log in */}
+              {isAdmin &&
+                <Link to="/users">All User Data</Link>
+              }
               <Link to="/home">Home</Link>
               <a href="#" onClick={() => dispatch(logout())}>
                 Logout
               </a>
+              <img src="https://media.istockphoto.com/vectors/shopping-cart-icon-isolated-on-white-background-vector-id1206806317?k=20&m=1206806317&s=612x612&w=0&h=waK8qOHV2Fgz2ntEWHWBQtXpNDAQ_wdhd4tkTUz6tfE=" width="48" height="48"></img>
             </div>
           ) : (
             <div className="navContent">

@@ -17,13 +17,13 @@ async function seed() {
   const createFakeUser = () => ({
     username: faker.internet.userName(),
     email: faker.internet.email(),
-    password: faker.internet.password(10),
+    password: '123',
     isAdmin: faker.datatype.boolean(),
   });
 
   const createFakeProduct = () => ({
     name: faker.commerce.product(),
-    pennies: faker.datatype.number({min: 1, max: 100000}),
+    pennies: faker.datatype.number({ min: 1, max: 100000 }),
     imageUrl: faker.image.fashion(),
     description: faker.lorem.lines(3),
   });
