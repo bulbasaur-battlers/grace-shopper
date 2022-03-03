@@ -20,60 +20,36 @@ const AuthForm = ({ name, displayName }) => {
     }
     dispatch(authenticate(username, password, email, formName))
   }
-
-  if (displayName === "Login") {
-    return (
-      <div>
-        <form onSubmit={handleSubmit} name={name}>
-          <div>
-            <label htmlFor="username">
-              <small>Username</small>
-            </label>
-            <input name="username" type="text" />
-          </div>
-          <div>
-            <label htmlFor="password">
-              <small>Password</small>
-            </label>
-            <input name="password" type="password" />
-          </div>
-          <div>
-            <button type="submit">{displayName}</button>
-          </div>
-          {error && error.response && <div> {error.response.data} </div>}
-        </form>
-      </div>
-    )
-  } else {
-    return (
-      <div>
-        <form onSubmit={handleSubmit} name={name}>
-          <div>
-            <label htmlFor="username">
-              <small>Username</small>
-            </label>
-            <input name="username" type="text" />
-          </div>
-          <div>
-            <label htmlFor="password">
-              <small>Password</small>
-            </label>
-            <input name="password" type="password" />
-          </div>
+  return (
+    <div>
+      <form onSubmit={handleSubmit} name={name}>
+        <div>
+          <label htmlFor="username">
+            <small>Username</small>
+          </label>
+          <input name="username" type="text" />
+        </div>
+        <div>
+          <label htmlFor="password">
+            <small>Password</small>
+          </label>
+          <input name="password" type="password" />
+        </div>
+        {displayName === "Sign Up" &&
           <div>
             <label htmlFor="email">
               <small>Email</small>
             </label>
             <input name="email" type="email" />
           </div>
-          <div>
-            <button type="submit">{displayName}</button>
-          </div>
-          {error && error.response && <div> {error.response.data} </div>}
-        </form>
-      </div>
-    )
-  }
+        }
+        <div>
+          <button type="submit">{displayName}</button>
+        </div>
+        {error && error.response && <div> {error.response.data} </div>}
+      </form>
+    </div>
+  )
 }
 
 export const Login = () => <AuthForm name="login" displayName="Login" />
