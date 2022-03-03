@@ -24,6 +24,8 @@ const Routes = () => {
       {isLoggedIn ? (
         <Switch>
           <Route path="/home" component={Home} />
+          <Route path='/' exact ><Product /></Route>
+          <Route exact path='/products/:productId'><SingleProduct /></Route>
           <Redirect to="/home" />
         </Switch>
       ) : (
