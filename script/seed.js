@@ -1,10 +1,10 @@
-"use strict";
-const { faker } = require("@faker-js/faker");
+'use strict';
+const { faker } = require('@faker-js/faker');
 
 const {
   db,
-  models: { User, Product },
-} = require("../server/db");
+  models: { User, Product, Order },
+} = require('../server/db');
 
 /**
  * seed - this function clears the database, updates tables to
@@ -12,7 +12,7 @@ const {
  */
 async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
-  console.log("db synced!");
+  console.log('db synced!');
 
   const createFakeUser = () => ({
     username: faker.internet.userName(),
@@ -23,26 +23,15 @@ async function seed() {
 
   const createFakeProduct = () => ({
     name: faker.commerce.product(),
-    pennies: faker.datatype.number({min: 1, max: 100000}),
+    pennies: faker.datatype.number({ min: 1, max: 100000 }),
     imageUrl: faker.image.fashion(),
     description: faker.lorem.lines(3),
   });
-
-  const usersArray = [];
-  for (let i = 0; i < 10; i++) {
-    usersArray.push(createFakeUser());
-  }
 
   const productsArray = [];
   for (let i = 0; i < 30; i++) {
     productsArray.push(createFakeProduct());
   }
-
-  const users = await Promise.all(
-    usersArray.map((current) => {
-      return User.create(current);
-    })
-  );
 
   const products = await Promise.all(
     productsArray.map((current) => {
@@ -50,11 +39,31 @@ async function seed() {
     })
   );
 
+  const usersArray = [];
+  for (let i = 0; i < 10; i++) {
+    usersArray.push(createFakeUser());
+  }
+
+  let orders = [];
+  const users = await Promise.all(
+    usersArray.map(async (current) => {
+      const tempUser = await User.create(current);
+      const tempOrder = await tempUser.createOrder();
+      await tempOrder.addProduct(Math.floor(Math.random() * (30 - 1) + 1), {
+        through: { quantity: 5 },
+      });
+      orders.push(tempOrder);
+      return tempUser;
+    })
+  );
+
   console.log(User);
   console.log(Product);
-
+  console.log(Order);
   console.log(`seeded ${users.length} users`);
   console.log(`seeded ${products.length} products`);
+  console.log(`seeded ${orders.length} orders`);
+
   console.log(`seeded successfully`);
   return {
     users: {
@@ -70,16 +79,16 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log("seeding...");
+  console.log('seeding...');
   try {
     await seed();
   } catch (err) {
     console.error(err);
     process.exitCode = 1;
   } finally {
-    console.log("closing db connection");
+    console.log('closing db connection');
     await db.close();
-    console.log("db connection closed");
+    console.log('db connection closed');
   }
 }
 
