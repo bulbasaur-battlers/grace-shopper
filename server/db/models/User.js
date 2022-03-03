@@ -24,18 +24,10 @@ const User = db.define('user', {
       isEmail: true
     }
   },
-  userType: {
-    type: Sequelize.ENUM('ADMIN', 'CUSTOMER'),
-    defaultValue: 'CUSTOMER',
-    allowNull: false
-  },
   isAdmin: {
-    type: Sequelize.VIRTUAL,
-    get() {
-      if (this.userType === 'ADMIN') {
-        return true
-      } else return false
-    }
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+    allowNull: false,
   }
 })
 
