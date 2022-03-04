@@ -7,7 +7,7 @@ router.get('/', async (req, res, next) => {
     const possibleAdmin = await User.findByToken(req.headers.authorization)
     if (possibleAdmin.isAdmin) {
       const users = await User.findAll({
-        attributes: ['id', 'username', 'email']
+        attributes: ['id', 'username', 'email', 'isAdmin']
       })
       res.json(users)
     } else {
