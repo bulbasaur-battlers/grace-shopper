@@ -7,6 +7,7 @@ import Product from './components/Products';
 import { me } from './store';
 import SingleProduct from './components/SingleProduct';
 import ViewCart from './components/ViewCart';
+import AdminUsers from './components/AdminUsers'
 
 /**
  * COMPONENT
@@ -14,6 +15,7 @@ import ViewCart from './components/ViewCart';
 
 const Routes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.id);
+  const isAdmin = useSelector((state) => state.auth.isAdmin)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,6 +26,11 @@ const Routes = () => {
     <div>
       {isLoggedIn ? (
         <Switch>
+          {isAdmin &&
+            <Route exact path="/users">
+              <AdminUsers />
+            </Route>
+          }
           <Route path="/home" component={Home} />
           <Route path="/cart">
             <ViewCart />
