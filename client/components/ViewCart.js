@@ -64,9 +64,6 @@ function ViewCart() {
                     <div>
                       <p>Quantity: {current.orderproduct.quantity}</p>
                     </div>
-                    <div>
-                      <button className="button-60">Update Item</button>
-                    </div>
                   </div>
                 </div>
               );
@@ -77,35 +74,15 @@ function ViewCart() {
               <p>Cart Total: {convertPennies(total)}</p>
             </div>
             <div>
+              <button className="button-60">Update Cart</button>
+            </div>
+            <div>
               <button className="button-60">Checkout</button>
             </div>
           </div>
         </div>
       </div>
     );
-    // return (
-    //   <div>
-    //     <h3>Products in your cart</h3>
-    //     <div className="allProd">
-    //       {products.map((current) => {
-    //         return (
-    //           <div className="singleProduct" key={current.id}>
-    //             <Link to={`/products/${current.id}`}>
-    //               <img src={current.imageUrl} width="190" height="225" />
-    //             </Link>
-    //             <div className="productInfo">
-    //               <div>
-    //                 <p>{current.name}</p>
-    //                 <p>${current.price}</p>
-    //               </div>
-    //               <button className="button-60">Add To Cart</button>
-    //             </div>
-    //           </div>
-    //         );
-    //       })}
-    //     </div>
-    //   </div>
-    // );
   }
 }
 

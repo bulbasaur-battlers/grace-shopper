@@ -29,6 +29,31 @@ export const fetchOrder = () => {
   };
 };
 
+export const confirmOrder = (orderId) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem(TOKEN);
+      await axios.put(
+        '/api/orders/current?confirmed=true',
+        { orderId },
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      const { data: newOrder } = await axios.get('/api/orders/current', {
+        headers: {
+          authorization: token,
+        },
+      });
+      dispatch(setCurrentOrder(newOrder));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
 export default function currentOrderReducer(state = {}, action) {
   switch (action.type) {
     case SET_CURRENT_ORDER:

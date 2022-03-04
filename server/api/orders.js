@@ -19,13 +19,13 @@ router.post('/current', async (req, res, next) => {
       });
       //CHECK IF CART EXISTS-> IF NOT, CREATE ONE, ADD PRODUCT TO CART
       if (!currOrder) {
-        const newOrder = currUser.createOrder();
-        const addedProd = newOrder.addProduct(productId, {
+        const newOrder = await currUser.createOrder();
+        const addedProd = await newOrder.addProduct(productId, {
           through: { quantity: quantity },
         });
         res.json(addedProd);
       } else {
-        const addedProd = currOrder.addProduct(productId, {
+        const addedProd = await currOrder.addProduct(productId, {
           through: { quantity: quantity },
         });
         res.json(addedProd);
@@ -35,37 +35,36 @@ router.post('/current', async (req, res, next) => {
     console.error(err);
   }
 });
-
+//TO SEE CURRENT CART
 router.get('/current', async (req, res, next) => {
   try {
     const currUser = await User.findByToken(req.headers.authorization);
     if (currUser) {
-      const currOrder2 = await Order.findOne({
-        where: {
-          userId: currUser.id,
-          confirmed: false,
-        },
-      });
-      const currOrder = await Order.findOne({
-        where: {
-          userId: currUser.id,
-          confirmed: false,
-        },
-        include: [
-          {
-            model: Product,
-            through: {
-              attributes: ['quantity'],
-            },
-          },
-        ],
-      });
-
-      const ex = await currOrder2.getProducts({
-        joinTableAttributes: ['quantity'],
-      });
-      console.log(ex[0]);
-
+      // ALTERNATE WAY TO GRAB DATA : MAY USE IF THERE ARE PROBLEMS IMPLEMENTING FRONT END
+      // const currOrder2 = await Order.findOne({
+      //   where: {
+      //     userId: currUser.id,
+      //     confirmed: false,
+      //   },
+      // });
+      // const ex = await currOrder2.getProducts({
+      //   joinTableAttributes: ['quantity'],
+      // });
+      // const currOrder = await Order.findOne({
+      //   where: {
+      //     userId: currUser.id,
+      //     confirmed: false,
+      //   },
+      //   include: [
+      //     {
+      //       model: Product,
+      //       through: {
+      //         attributes: ['quantity'],
+      //       },
+      //     },
+      //   ],
+      // });
+      const currOrder = await Order.findPendingByUserId(currUser.id);
       res.json(currOrder);
     } else {
       //REPLACE WITH GUEST CART
@@ -115,6 +114,7 @@ router.put('/current', async (req, res, next) => {
                 productId: currItem.id,
               },
             });
+            await currOrderItem.update({ quantity: currItem.quantity });
           });
         }
       }
@@ -124,7 +124,14 @@ router.put('/current', async (req, res, next) => {
     next();
   }
 });
-
+router.delete('/current', async (req, res, next) => {
+  try {
+    const { orderId, productId } = req.body;
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
 //CREATING A NEW CART
 router.post('/', async (req, res, next) => {
   try {
