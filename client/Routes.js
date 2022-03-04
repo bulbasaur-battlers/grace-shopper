@@ -8,6 +8,7 @@ import { me } from './store';
 import SingleProduct from './components/SingleProduct';
 import ViewCart from './components/ViewCart';
 import AdminUsers from './components/AdminUsers'
+import ProductForm from './components/ProductForm';
 
 /**
  * COMPONENT
@@ -26,10 +27,14 @@ const Routes = () => {
     <div>
       {isLoggedIn ? (
         <Switch>
+          {/*Admin Routes*/}
           {isAdmin &&
             <Switch>
-              <Route exact path="/users">
+              <Route exact path="/admin/users">
                 <AdminUsers />
+              </Route>
+              <Route exact path="/admin/addProduct">
+                <ProductForm />
               </Route>
               <Route path="/home" component={Home} />
               <Route path="/cart">
@@ -44,6 +49,7 @@ const Routes = () => {
               <Redirect to="/home" />
             </Switch>
           }
+          {/*Non Admin Routes*/}
           <Route path="/home" component={Home} />
           <Route path="/cart">
             <ViewCart />
@@ -58,6 +64,7 @@ const Routes = () => {
         </Switch>
       ) : (
         <Switch>
+          {/*No Login Routes*/}
           <Route path="/" exact>
             <Product />
           </Route>

@@ -21,7 +21,9 @@ function Product() {
             <div>
                 <h3>Here are the Items</h3>
                 {isAdmin &&
-                    <button className="add">Add Item</button>
+                    <Link to='/admin/addProduct'>
+                        <button className="add">Add Item</button>
+                    </Link>
                 }
                 <div className="allProd">
                     {products.map((current) => {
@@ -43,7 +45,7 @@ function Product() {
                         );
                     })}
                 </div>
-            </div>
+            </div >
         );
     }
 }
