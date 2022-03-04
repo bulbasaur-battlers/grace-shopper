@@ -58,12 +58,13 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/id', async (req, res, next) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     const possibleAdmin = await User.findByToken(req.headers.authorization)
     if (possibleAdmin.isAdmin) {
       const product = await Product.findByPk(req.params.id)
-      await product.destory()
+      console.log(product)
+      await product.destroy()
       res.send(product)
     } else {
       throw 'Not an Admin'

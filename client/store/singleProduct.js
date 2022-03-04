@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 const TOKEN = 'token'
+
 const GET_PRODUCT = 'GET_PRODUCT';
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
-const DELETE_PRODUCT = 'DELETE_PRODUCT';
 const ADD_PRODUCT = 'ADD_PRODUCT'
 
 export const getProduct = (product) => {
@@ -12,13 +12,6 @@ export const getProduct = (product) => {
     product,
   };
 };
-
-export const deleteProduct = (product) => {
-  return {
-    type: DELETE_PRODUCT,
-    product
-  }
-}
 
 export const addProduct = (product) => {
   return {
@@ -82,23 +75,7 @@ export const makeProduct = (product) => {
   }
 }
 
-export const removeProduct = (product) => {
-  return async (dispatch) => {
-    try {
-      const token = window.localStorage.getItem(TOKEN)
-      if (token) {
-        const { data } = await axios.delete(`/api/products/${product.id}`, {
-          headers: {
-            authorization: token
-          }
-        })
-        dispatch(deleteProduct(data))
-      }
-    } catch (err) {
-      console.log(err)
-    }
-  }
-}
+
 
 export default function singleProductReducer(state = [], action) {
   switch (action.type) {
@@ -107,8 +84,6 @@ export default function singleProductReducer(state = [], action) {
     case ADD_PRODUCT:
       return action.product
     case UPDATE_PRODUCT:
-      return action.product;
-    case DELETE_PRODUCT:
       return action.product;
     default:
       return state;
