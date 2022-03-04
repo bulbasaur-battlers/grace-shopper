@@ -9,7 +9,8 @@ function AdminUsers() {
     dispatch(fetchUsers());
   }, []);
 
-  let users = useSelector((state) => state.users);
+
+  let users = useSelector((state) => state.adminUsers);
 
   if (users.length === 0) {
     return <h1>No Users Currently!</h1>;
