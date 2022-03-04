@@ -30,10 +30,10 @@ const Routes = () => {
           {/*Admin Routes*/}
           {isAdmin &&
             <Switch>
-              <Route exact path="/users">
+              <Route exact path="/admin/users">
                 <AdminUsers />
               </Route>
-              <Route exact path="/addProduct/:productId">
+              <Route exact path="/admin/addProduct">
                 <ProductForm />
               </Route>
               <Route path="/home" component={Home} />

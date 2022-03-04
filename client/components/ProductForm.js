@@ -4,7 +4,7 @@ import { makeProduct } from '../store/singleProduct'
 
 
 const ProductForm = () => {
-    const dispatch = useDispatch
+    const dispatch = useDispatch()
     const [product, setProduct] = useState({})
     const { error } = useSelector(state => state.singleProduct)
 
@@ -19,7 +19,7 @@ const ProductForm = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        makeProduct(product)
+        dispatch(makeProduct(product))
     }
 
     return (
