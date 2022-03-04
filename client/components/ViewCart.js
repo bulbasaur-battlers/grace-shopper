@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchOrder } from '../store/currentOrder';
+import { fetchOrder, confirmOrder } from '../store/currentOrder';
 import { Link } from 'react-router-dom';
 const convertPennies = (pennies) => {
   if (Math.floor(pennies / 100) === 0) {
@@ -77,7 +77,11 @@ function ViewCart() {
               <button className="button-60">Update Cart</button>
             </div>
             <div>
-              <button className="button-60">Checkout</button>
+              <button
+                className="button-60"
+                onClick={() => dispatch(confirmOrder({ orderId: cart.id }))}>
+                Checkout
+              </button>
             </div>
           </div>
         </div>

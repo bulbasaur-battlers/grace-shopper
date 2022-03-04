@@ -50,20 +50,6 @@ router.get('/current', async (req, res, next) => {
       // const ex = await currOrder2.getProducts({
       //   joinTableAttributes: ['quantity'],
       // });
-      // const currOrder = await Order.findOne({
-      //   where: {
-      //     userId: currUser.id,
-      //     confirmed: false,
-      //   },
-      //   include: [
-      //     {
-      //       model: Product,
-      //       through: {
-      //         attributes: ['quantity'],
-      //       },
-      //     },
-      //   ],
-      // });
       const currOrder = await Order.findPendingByUserId(currUser.id);
       res.json(currOrder);
     } else {
@@ -80,10 +66,8 @@ router.put('/current', async (req, res, next) => {
     const currUser = await User.findByToken(req.headers.authorization);
     // IF CURRENT USER EXISTS
     if (currUser) {
-      const { confirmed } = req.body;
       //CHECKING IF PURCHASE BUTTON WAS CLICKED
-      //(SEND confirmed: true FROM FRONT END)
-      if (confirmed) {
+      if (req.query.confirmed) {
         const { orderId } = req.body;
         const currOrder = await Order.findByPk(orderId, {
           where: {
@@ -93,6 +77,8 @@ router.put('/current', async (req, res, next) => {
         });
         //UPDATE CART TO CONFIRMED
         await currOrder.update({ confirmed: true });
+        const newOrder = currUser.createOrder();
+        res.json(newOrder);
       } else {
         // IF PURCHASE BUTTON WASNT CLICKED -> UPDATE CART WAS CLICKED
         //(SEND updated: [{productId, quantity}], orderId, FROM FRONT END)
@@ -132,37 +118,26 @@ router.delete('/current', async (req, res, next) => {
     next(err);
   }
 });
-//CREATING A NEW CART
-router.post('/', async (req, res, next) => {
-  try {
-    const currUser = await User.findByToken(req.headers.authorization);
-    if (currUser) {
-      const newCart = await currUser.createOrder();
-    }
-  } catch (err) {
-    console.error(err);
-    next();
-  }
-});
 
 router.get('/past', async (req, res, next) => {
   try {
     const currUser = await User.findByToken(req.headers.authorization);
     if (currUser) {
-      const pastOrders = await Order.findAll({
-        where: {
-          userId: currUser.id,
-          confirmed: true,
-        },
-        include: [
-          {
-            model: Product,
-            through: {
-              attributes: ['quantity'],
-            },
-          },
-        ],
-      });
+      // const pastOrders = await Order.findAll({
+      //   where: {
+      //     userId: currUser.id,
+      //     confirmed: true,
+      //   },
+      //   include: [
+      //     {
+      //       model: Product,
+      //       through: {
+      //         attributes: ['quantity'],
+      //       },
+      //     },
+      //   ],
+      // });
+      const pastOrders = Order.findPastByUserId(currUser.id);
       res.json(pastOrders);
     }
   } catch (error) {
