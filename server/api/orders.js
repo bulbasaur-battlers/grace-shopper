@@ -7,8 +7,7 @@ const {
 router.post('/current', async (req, res, next) => {
   try {
     const currUser = await User.findByToken(req.headers.authorization);
-    const { productId, quantity } = req.body;
-
+    const { product, quantity } = req.body;
     if (currUser) {
       //FIND CURRENTLY PENDING ORDER
       const currOrder = await Order.findOne({
@@ -20,15 +19,26 @@ router.post('/current', async (req, res, next) => {
       //CHECK IF CART EXISTS-> IF NOT, CREATE ONE, ADD PRODUCT TO CART
       if (!currOrder) {
         const newOrder = await currUser.createOrder();
-        const addedProd = await newOrder.addProduct(productId, {
+        const addedProd = await newOrder.addProduct(product.id, {
           through: { quantity: quantity },
         });
         res.json(addedProd);
       } else {
-        const addedProd = await currOrder.addProduct(productId, {
-          through: { quantity: quantity },
-        });
-        res.json(addedProd);
+        if (await currOrder.hasProduct(product.id)) {
+          const orderQuant = await OrderProduct.findOne({
+            where: {
+              orderId: currOrder.id,
+              productId: product.id,
+            },
+          });
+          await orderQuant.update({ quantity: orderQuant.quantity + quantity });
+        } else {
+          const addedProd = await currOrder.addProduct(product.id, {
+            through: { quantity: quantity },
+          });
+
+          res.json(addedProd);
+        }
       }
     }
   } catch (err) {
@@ -40,16 +50,6 @@ router.get('/current', async (req, res, next) => {
   try {
     const currUser = await User.findByToken(req.headers.authorization);
     if (currUser) {
-      // ALTERNATE WAY TO GRAB DATA : MAY USE IF THERE ARE PROBLEMS IMPLEMENTING FRONT END
-      // const currOrder2 = await Order.findOne({
-      //   where: {
-      //     userId: currUser.id,
-      //     confirmed: false,
-      //   },
-      // });
-      // const ex = await currOrder2.getProducts({
-      //   joinTableAttributes: ['quantity'],
-      // });
       const currOrder = await Order.findPendingByUserId(currUser.id);
       res.json(currOrder);
     } else {

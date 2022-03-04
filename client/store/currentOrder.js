@@ -29,6 +29,25 @@ export const fetchOrder = () => {
   };
 };
 
+export const addToOrder = (productIdQuantity) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem(TOKEN);
+      const addedProd = await axios.post(
+        '/api/orders/current',
+        productIdQuantity,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
 export const confirmOrder = (orderId) => {
   return async (dispatch) => {
     try {
