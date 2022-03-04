@@ -12,6 +12,10 @@ User.hasMany(Order);
 Order.belongsTo(User);
 Order.belongsToMany(Product, { through: OrderProduct });
 Product.belongsToMany(Order, { through: OrderProduct });
+Order.hasMany(OrderProduct);
+OrderProduct.belongsTo(Order);
+Product.hasMany(OrderProduct);
+OrderProduct.belongsTo(Product);
 
 module.exports = {
   db,
