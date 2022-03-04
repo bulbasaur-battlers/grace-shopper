@@ -27,9 +27,22 @@ const Routes = () => {
       {isLoggedIn ? (
         <Switch>
           {isAdmin &&
-            <Route exact path="/users">
-              <AdminUsers />
-            </Route>
+            <Switch>
+              <Route exact path="/users">
+                <AdminUsers />
+              </Route>
+              <Route path="/home" component={Home} />
+              <Route path="/cart">
+                <ViewCart />
+              </Route>
+              <Route path="/" exact>
+                <Product />
+              </Route>
+              <Route exact path="/products/:productId">
+                <SingleProduct />
+              </Route>
+              <Redirect to="/home" />
+            </Switch>
           }
           <Route path="/home" component={Home} />
           <Route path="/cart">
