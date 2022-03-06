@@ -88,6 +88,27 @@ export const confirmOrder = (orderId) => {
     }
   };
 };
+export const deleteOrder = (orderDetails) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem(TOKEN);
+      await axios.delete('/api/orders/current', {
+        headers: {
+          authorization: token,
+        },
+        data: orderDetails,
+      });
+      const { data: newOrder } = await axios.get('/api/orders/current', {
+        headers: {
+          authorization: token,
+        },
+      });
+      dispatch(setCurrentOrder(newOrder));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
 
 export default function currentOrderReducer(state = {}, action) {
   switch (action.type) {

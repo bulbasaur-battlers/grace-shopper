@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchOrder, confirmOrder, updateOrder } from '../store/currentOrder';
+import {
+  fetchOrder,
+  confirmOrder,
+  updateOrder,
+  deleteOrder,
+} from '../store/currentOrder';
 import { Link } from 'react-router-dom';
 const convertPennies = (pennies) => {
   if (Math.floor(pennies / 100) === 0) {
@@ -32,10 +37,6 @@ function ViewCart() {
     products.forEach((currProd) => {
       total += currProd.pennies * currProd.orderproduct.quantity;
       initialQuantities[currProd.id] = currProd.orderproduct.quantitiy;
-      // setQuantities({
-      //   ...quantities,
-      //   [currProd.id]: currProd.orderproduct.quantity,
-      // });
     });
   }
   if (quantities.length === 0) {
@@ -91,7 +92,18 @@ function ViewCart() {
                       </form>
                     </div>
                     <div>
-                      <button className="button-60">Remove Item</button>
+                      <button
+                        className="button-60"
+                        onClick={() =>
+                          dispatch(
+                            deleteOrder({
+                              orderId: cart.id,
+                              productId: current.id,
+                            })
+                          )
+                        }>
+                        Remove Item
+                      </button>
                     </div>
                   </div>
                 </div>

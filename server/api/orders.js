@@ -102,15 +102,6 @@ router.put('/current', async (req, res, next) => {
             });
             await currOrderItem.update({ quantity: updated[key] });
           }
-          // updated.forEach(async (currItem) => {
-          //   const currOrderItem = await OrderProduct.findOne({
-          //     where: {
-          //       orderId: orderId,
-          //       productId: currItem.id,
-          //     },
-          //   });
-          //   await currOrderItem.update({ quantity: currItem.quantity });
-          // });
         }
       }
     }
@@ -122,6 +113,15 @@ router.put('/current', async (req, res, next) => {
 router.delete('/current', async (req, res, next) => {
   try {
     const { orderId, productId } = req.body;
+    const currUser = await User.findByToken(req.headers.authorization);
+    const currOrder = await Order.findByPk(orderId, {
+      where: {
+        confirmed: false,
+      },
+    });
+    if (currUser.hasOrder(currOrder)) {
+      currOrder.removeProduct(productId);
+    }
   } catch (err) {
     console.error(err);
     next(err);
