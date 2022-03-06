@@ -9,6 +9,7 @@ import SingleProduct from './components/SingleProduct';
 import ViewCart from './components/ViewCart';
 import AdminUsers from './components/AdminUsers'
 import ProductForm from './components/ProductForm';
+import EditProduct from './components/EditProduct'
 
 /**
  * COMPONENT
@@ -35,6 +36,9 @@ const Routes = () => {
               </Route>
               <Route exact path="/admin/addProduct">
                 <ProductForm />
+              </Route>
+              <Route exact path="/admin/edit/:productId">
+                <EditProduct />
               </Route>
               <Route path="/home" component={Home} />
               <Route path="/cart">

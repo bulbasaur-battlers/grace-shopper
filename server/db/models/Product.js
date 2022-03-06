@@ -35,9 +35,6 @@ const Product = db.define('product', {
         }
       }
     },
-    set(value) {
-      throw new Error('Price is determined by pennies!');
-    },
   },
   imageUrl: {
     type: Sequelize.TEXT,

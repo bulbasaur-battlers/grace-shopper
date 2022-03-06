@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import { makeProduct } from '../store/singleProduct'
 
 
 const ProductForm = () => {
     const dispatch = useDispatch()
+    let history = useHistory()
     const [product, setProduct] = useState({})
     const { error } = useSelector(state => state.singleProduct)
 
@@ -20,7 +22,11 @@ const ProductForm = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         dispatch(makeProduct(product))
+        if (product.name !== undefined && product.pennies !== undefined) {
+            history.push('/')
+        }
     }
+
 
     return (
         <div className="productForm">
