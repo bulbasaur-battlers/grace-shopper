@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchOrder, confirmOrder } from '../store/currentOrder';
+import { fetchOrder, confirmOrder, updateOrder } from '../store/currentOrder';
 import { Link } from 'react-router-dom';
 const convertPennies = (pennies) => {
   if (Math.floor(pennies / 100) === 0) {
@@ -18,7 +18,9 @@ const convertPennies = (pennies) => {
 function ViewCart() {
   const dispatch = useDispatch();
   let products = [];
+  let initialQuantities = {};
   let total = 0;
+  const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
     dispatch(fetchOrder());
@@ -29,9 +31,16 @@ function ViewCart() {
     products = cart.products;
     products.forEach((currProd) => {
       total += currProd.pennies * currProd.orderproduct.quantity;
+      initialQuantities[currProd.id] = currProd.orderproduct.quantitiy;
+      // setQuantities({
+      //   ...quantities,
+      //   [currProd.id]: currProd.orderproduct.quantity,
+      // });
     });
   }
-
+  if (quantities.length === 0) {
+    setQuantities({ initialQuantities });
+  }
   if (products.length === 0) {
     return <h1>No Items In Cart</h1>;
   } else {
@@ -62,7 +71,27 @@ function ViewCart() {
                       </p>
                     </div>
                     <div>
-                      <p>Quantity: {current.orderproduct.quantity}</p>
+                      {/* <p>Quantity: {current.orderproduct.quantity}</p> */}
+                      <form>
+                        <input
+                          type="number"
+                          min="1"
+                          placeholder={current.orderproduct.quantity}
+                          onChange={(e) =>
+                            setQuantities({
+                              ...quantities,
+                              [current.id]: e.target.value,
+                            })
+                          }
+                          value={
+                            quantities[current.id] ||
+                            current.orderproduct.quantity
+                          }
+                        />
+                      </form>
+                    </div>
+                    <div>
+                      <button className="button-60">Remove Item</button>
                     </div>
                   </div>
                 </div>
@@ -74,9 +103,15 @@ function ViewCart() {
               <p>Cart Total: {convertPennies(total)}</p>
             </div>
             <div>
-              <button className="button-60">Update Cart</button>
-            </div>
-            <div>
+              <button
+                className="button-60"
+                onClick={() =>
+                  dispatch(
+                    updateOrder({ updated: quantities, orderId: cart.id })
+                  )
+                }>
+                Update Cart
+              </button>
               <button
                 className="button-60"
                 onClick={() => dispatch(confirmOrder({ orderId: cart.id }))}>

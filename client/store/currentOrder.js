@@ -48,6 +48,26 @@ export const addToOrder = (productIdQuantity) => {
   };
 };
 
+export const updateOrder = (orderDetails) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem(TOKEN);
+      await axios.put('/api/orders/current', orderDetails, {
+        headers: {
+          authorization: token,
+        },
+      });
+      const { data: newOrder } = await axios.get('/api/orders/current', {
+        headers: {
+          authorization: token,
+        },
+      });
+      dispatch(setCurrentOrder(newOrder));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
 export const confirmOrder = (orderId) => {
   return async (dispatch) => {
     try {

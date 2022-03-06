@@ -81,7 +81,7 @@ router.put('/current', async (req, res, next) => {
         res.json(newOrder);
       } else {
         // IF PURCHASE BUTTON WASNT CLICKED -> UPDATE CART WAS CLICKED
-        //(SEND updated: [{productId, quantity}], orderId, FROM FRONT END)
+        //(SEND updated: {{productId, quantity}, ...}, orderId, FROM FRONT END)
         // GRABBING UPDATED ITEMS FROM CART
         const { updated, orderId } = req.body;
         // GRABBING CURRENT UNCONFIRMED CART
@@ -93,15 +93,24 @@ router.put('/current', async (req, res, next) => {
         // CHECKING IF USER OWNS THIS CART
         if (currUser.hasOrder(currOrder)) {
           // IF THEY DO, LOOP THROUGH UPDATED ITEMS({productId, quantity}) AND UPDATE CART CONTENTS
-          updated.forEach(async (currItem) => {
+          for (const key in updated) {
             const currOrderItem = await OrderProduct.findOne({
               where: {
                 orderId: orderId,
-                productId: currItem.id,
+                productId: key,
               },
             });
-            await currOrderItem.update({ quantity: currItem.quantity });
-          });
+            await currOrderItem.update({ quantity: updated[key] });
+          }
+          // updated.forEach(async (currItem) => {
+          //   const currOrderItem = await OrderProduct.findOne({
+          //     where: {
+          //       orderId: orderId,
+          //       productId: currItem.id,
+          //     },
+          //   });
+          //   await currOrderItem.update({ quantity: currItem.quantity });
+          // });
         }
       }
     }
