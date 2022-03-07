@@ -6,6 +6,7 @@ import { addToOrder } from '../store/currentOrder';
 
 function SingleProduct() {
   const [inputValue, setInputValue] = useState(1);
+  const [addedMsg, setAddedMsg] = useState('');
   const isAdmin = useSelector((state) => state.auth.isAdmin);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -18,6 +19,7 @@ function SingleProduct() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(addToOrder({ product, quantity: +inputValue }));
+    setAddedMsg('Added to Cart!');
   }
   if (product.length === 0) {
     return <h1>Loading</h1>;
@@ -46,6 +48,9 @@ function SingleProduct() {
             </select>
             <input type="submit" value="Add To Cart" />
           </form>
+          <div>
+            <p>{addedMsg}</p>
+          </div>
           <p id="descriptor">{product.description}</p>
         </div>
       </div>
