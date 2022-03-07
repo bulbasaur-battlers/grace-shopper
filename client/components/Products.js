@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../store/products';
 import { Link } from 'react-router-dom';
 import { removeProduct } from '../store/products';
+import { addToOrder } from '../store/currentOrder';
 
 function Product() {
   const dispatch = useDispatch();
@@ -11,6 +12,10 @@ function Product() {
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
+
+  const addToCartHandler = (product) => {
+    dispatch(addToOrder({ product, quantity: 1 }))
+  }
 
   let products = useSelector((state) => state.products);
 
@@ -47,7 +52,7 @@ function Product() {
                       Delete Item
                     </button>
                   )}
-                  <button className="button-60">Add To Cart</button>
+                  <button className="button-60" onClick={() => addToCartHandler(current)}>Add To Cart</button>
                 </div>
               </div>
             );
