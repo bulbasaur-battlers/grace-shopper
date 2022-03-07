@@ -103,6 +103,7 @@ router.put('/current', async (req, res, next) => {
             });
             await currOrderItem.update({ quantity: updated[key] });
           }
+          res.sendStatus(200);
         }
       }
     }
