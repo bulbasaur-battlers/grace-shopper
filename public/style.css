@@ -35,8 +35,25 @@ p {
 
 .navContent {
   display: flex;
-  height: 48px;
   align-items: center;
+  justify-content: space-between;
+  height: 48px;
+}
+
+.navContent a {
+  text-decoration: none;
+  color: black;
+
+}
+
+.navContent a:hover{
+  font-weight: 900;
+}
+
+#navUsername {
+  font-size: 45px;
+  font-weight: 600;
+  color: #363636;
 }
 
 .allProd {
