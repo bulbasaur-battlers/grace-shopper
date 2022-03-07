@@ -59,7 +59,7 @@ p {
 .allProd {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
+  justify-content: flex-start;
 }
 
 .singleProduct {
@@ -67,7 +67,8 @@ p {
   background-clip: content-box;
   box-shadow: inset 0 0 0 5px rgb(99, 114, 114);
   margin-top: 10px;
-  width: 200px
+  width: 200px;
+  margin-right: 15px;
 }
 
 .frontDisplay{
