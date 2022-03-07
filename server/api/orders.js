@@ -22,7 +22,7 @@ router.post('/current', async (req, res, next) => {
         const addedProd = await newOrder.addProduct(product.id, {
           through: { quantity: quantity },
         });
-        res.json(addedProd);
+        res.sendStatus(201);
       } else {
         if (await currOrder.hasProduct(product.id)) {
           const orderQuant = await OrderProduct.findOne({
@@ -32,12 +32,13 @@ router.post('/current', async (req, res, next) => {
             },
           });
           await orderQuant.update({ quantity: orderQuant.quantity + quantity });
+          res.sendStatus(201);
         } else {
           const addedProd = await currOrder.addProduct(product.id, {
             through: { quantity: quantity },
           });
 
-          res.json(addedProd);
+          res.sendStatus(201);
         }
       }
     }
