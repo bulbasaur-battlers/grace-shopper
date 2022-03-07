@@ -28,7 +28,6 @@ const EditProduct = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         dispatch(changeProduct(eProduct))
-        console.log(product.name)
         if (eProduct.name !== '' && eProduct.pennies !== '') {
             history.push(`/products/${params.productId}`)
         }
