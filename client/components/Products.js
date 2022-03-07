@@ -24,12 +24,13 @@ function Product() {
   } else {
     return (
       <div>
-        <h3>Here are the Items</h3>
-        {isAdmin && (
-          <Link to="/admin/addProduct">
-            <button className="add">Add Item</button>
-          </Link>
-        )}
+        <div className="productPageTop">
+          {isAdmin && (
+            <Link to="/admin/addProduct">
+              <button className="add">Add Item</button>
+            </Link>
+          )}
+        </div>
         <div className="allProd">
           {products.map((current) => {
             return (
