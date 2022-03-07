@@ -71,7 +71,7 @@ function ViewCart() {
     return <h1>Successfully checked out!</h1>;
   } else {
     return (
-      <div>
+      <div className="cartPage">
         <h3 className="cart-title">Products in your cart</h3>
         <div className="cart-container">
           <div className="cart-items-container">
