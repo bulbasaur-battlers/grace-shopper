@@ -29,14 +29,16 @@ function Product() {
           {products.map((current) => {
             return (
               <div className="singleProduct" key={current.id}>
-                <Link to={`/products/${current.id}`}>
-                  <img src={current.imageUrl} width="190" height="225" />
-                </Link>
+                <div className="frontDisplay">
+                  <Link to={`/products/${current.id}`}>
+                    <img src={current.imageUrl} width="190" height="225" />
+                  </Link>
+                </div>
+                <div>
+                  <p>{current.name}</p>
+                  <p>${current.price}</p>
+                </div>
                 <div className="productInfo">
-                  <div>
-                    <p>{current.name}</p>
-                    <p>${current.price}</p>
-                  </div>
                   {isAdmin && (
                     <button
                       className="del"
