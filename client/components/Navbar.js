@@ -6,6 +6,7 @@ import { logout } from '../store';
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.id);
   const isAdmin = useSelector((state) => state.auth.isAdmin);
+  const username = useSelector((state) => state.auth.username);
   const dispatch = useDispatch();
 
   return (
@@ -17,6 +18,7 @@ const Navbar = () => {
             width="150"
             height="48"></img>
         </Link>
+        <div id="navUsername">{username}</div>
         <nav>
           {isLoggedIn ? (
             <div className="navContent">
