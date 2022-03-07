@@ -7,7 +7,8 @@ a {
 }
 
 label {
-  display: block;
+  display: inline-block;
+  text-decoration: underline;
 }
 
 nav a {
@@ -36,7 +37,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: space-between;
-
+  height: 48px;
 }
 
 .navContent a {
@@ -58,19 +59,25 @@ p {
 .allProd {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
 }
 
 .singleProduct {
   padding: 30px;
   background-clip: content-box;
-  box-shadow: inset 0 0 0 10px rgb(99, 114, 114);
+  box-shadow: inset 0 0 0 5px rgb(99, 114, 114);
   margin-top: 10px;
+  width: 200px
+}
+
+.frontDisplay{
+  display: flex;
+  justify-content: center;
 }
 
 .productInfo {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
@@ -82,6 +89,18 @@ p {
 .singleItem {
   display: flex;
   justify-content: space-around;
+}
+
+.productForm{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formInputs{
+  display:flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .button-60 {
