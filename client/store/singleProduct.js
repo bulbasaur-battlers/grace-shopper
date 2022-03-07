@@ -52,7 +52,7 @@ export const changeProduct = (product) => {
         dispatch(updateProduct(data))
       }
     } catch (err) {
-      console.log(err)
+      return dispatch(getProduct({ error: err }))
     }
   }
 }
@@ -70,7 +70,7 @@ export const makeProduct = (product) => {
         dispatch(addProduct(data))
       }
     } catch (err) {
-      console.log(err)
+      return dispatch(getProduct({ error: err }))
     }
   }
 }
