@@ -124,6 +124,7 @@ router.delete('/current', async (req, res, next) => {
     if (currUser.hasOrder(currOrder)) {
       currOrder.removeProduct(productId);
     }
+    res.sendStatus(204);
   } catch (err) {
     console.error(err);
     next(err);
