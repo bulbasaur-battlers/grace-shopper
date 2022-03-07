@@ -5,7 +5,7 @@ import { fetchSingleProduct } from '../store/singleProduct';
 import { addToOrder } from '../store/currentOrder';
 
 function SingleProduct() {
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(1);
   const isAdmin = useSelector((state) => state.auth.isAdmin);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -36,7 +36,7 @@ function SingleProduct() {
           <form onSubmit={(e) => handleSubmit(e)}>
             <select
               name="quantity"
-              defaultValue="1"
+              defaultValue={1}
               onChange={(e) => setInputValue(e.target.value)}>
               <option value="1">1</option>
               <option value="2">2</option>
