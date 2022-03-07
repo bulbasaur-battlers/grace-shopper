@@ -103,6 +103,7 @@ router.put('/current', async (req, res, next) => {
             });
             await currOrderItem.update({ quantity: updated[key] });
           }
+          res.sendStatus(200);
         }
       }
     }
@@ -123,6 +124,7 @@ router.delete('/current', async (req, res, next) => {
     if (currUser.hasOrder(currOrder)) {
       currOrder.removeProduct(productId);
     }
+    res.sendStatus(204);
   } catch (err) {
     console.error(err);
     next(err);
