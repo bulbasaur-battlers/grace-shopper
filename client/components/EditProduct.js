@@ -14,8 +14,6 @@ const EditProduct = () => {
     let product = useSelector(state => state.singleProduct)
     const [eProduct, seteProduct] = useState({ ...product })
 
-    console.log(eProduct)
-
     const handleChange = (event) => {
         let value = {}
         value = { [event.target.name]: event.target.value }

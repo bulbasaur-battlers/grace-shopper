@@ -37,7 +37,7 @@ function ViewCart() {
     dispatch(fetchOrder());
   }, [myCart, myProducts]);
 
-  if (cart.products) {
+  if (cart.products != undefined) {
     products = cart.products;
     products.forEach((currProd) => {
       total += currProd.pennies * currProd.orderproduct.quantity;
