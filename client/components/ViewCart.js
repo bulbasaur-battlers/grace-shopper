@@ -27,10 +27,15 @@ function ViewCart() {
   let total = 0;
   const [quantities, setQuantities] = useState({});
 
+  let cart = useSelector((state) => state.currentOrder);
+
+  const [myCart, setMyCart] = useState({});
+  const [myProducts, setMyProducts] = useState([]);
+  const [submitStatus, setSubmitStatus] = useState(false);
+
   useEffect(() => {
     dispatch(fetchOrder());
-  }, []);
-  let cart = useSelector((state) => state.currentOrder);
+  }, [myCart, myProducts]);
 
   if (cart.products) {
     products = cart.products;
@@ -42,8 +47,28 @@ function ViewCart() {
   if (quantities.length === 0) {
     setQuantities({ initialQuantities });
   }
-  if (products.length === 0) {
+  function handleDelete(orderid, productid) {
+    dispatch(
+      deleteOrder({
+        orderId: orderid,
+        productId: productid,
+      })
+    );
+    setMyCart({ ...cart });
+  }
+  function handleUpdate(quantities, orderid) {
+    dispatch(updateOrder({ updated: quantities, orderId: orderid }));
+    setMyProducts([...cart.products]);
+  }
+
+  function handleCheckout(orderid) {
+    dispatch(confirmOrder({ orderId: orderid }));
+    setSubmitStatus(true);
+  }
+  if (products.length === 0 && !submitStatus) {
     return <h1>No Items In Cart</h1>;
+  } else if (submitStatus) {
+    return <h1>Successfully checked out!</h1>;
   } else {
     return (
       <div>
@@ -94,14 +119,7 @@ function ViewCart() {
                     <div>
                       <button
                         className="button-60"
-                        onClick={() =>
-                          dispatch(
-                            deleteOrder({
-                              orderId: cart.id,
-                              productId: current.id,
-                            })
-                          )
-                        }>
+                        onClick={() => handleDelete(cart.id, current.id)}>
                         Remove Item
                       </button>
                     </div>
@@ -117,16 +135,12 @@ function ViewCart() {
             <div>
               <button
                 className="button-60"
-                onClick={() =>
-                  dispatch(
-                    updateOrder({ updated: quantities, orderId: cart.id })
-                  )
-                }>
+                onClick={() => handleUpdate(quantities, cart.id)}>
                 Update Cart
               </button>
               <button
                 className="button-60"
-                onClick={() => dispatch(confirmOrder({ orderId: cart.id }))}>
+                onClick={() => handleCheckout(cart.id)}>
                 Checkout
               </button>
             </div>
