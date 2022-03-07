@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchOrder } from '../store/currentOrder';
+import {
+  fetchOrder,
+  confirmOrder,
+  updateOrder,
+  deleteOrder,
+} from '../store/currentOrder';
 import { Link } from 'react-router-dom';
 const convertPennies = (pennies) => {
   if (Math.floor(pennies / 100) === 0) {
@@ -18,7 +23,9 @@ const convertPennies = (pennies) => {
 function ViewCart() {
   const dispatch = useDispatch();
   let products = [];
+  let initialQuantities = {};
   let total = 0;
+  const [quantities, setQuantities] = useState({});
 
   useEffect(() => {
     dispatch(fetchOrder());
@@ -29,9 +36,12 @@ function ViewCart() {
     products = cart.products;
     products.forEach((currProd) => {
       total += currProd.pennies * currProd.orderproduct.quantity;
+      initialQuantities[currProd.id] = currProd.orderproduct.quantitiy;
     });
   }
-
+  if (quantities.length === 0) {
+    setQuantities({ initialQuantities });
+  }
   if (products.length === 0) {
     return <h1>No Items In Cart</h1>;
   } else {
@@ -62,10 +72,38 @@ function ViewCart() {
                       </p>
                     </div>
                     <div>
-                      <p>Quantity: {current.orderproduct.quantity}</p>
+                      {/* <p>Quantity: {current.orderproduct.quantity}</p> */}
+                      <form>
+                        <input
+                          type="number"
+                          min="1"
+                          placeholder={current.orderproduct.quantity}
+                          onChange={(e) =>
+                            setQuantities({
+                              ...quantities,
+                              [current.id]: e.target.value,
+                            })
+                          }
+                          value={
+                            quantities[current.id] ||
+                            current.orderproduct.quantity
+                          }
+                        />
+                      </form>
                     </div>
                     <div>
-                      <button className="button-60">Update Item</button>
+                      <button
+                        className="button-60"
+                        onClick={() =>
+                          dispatch(
+                            deleteOrder({
+                              orderId: cart.id,
+                              productId: current.id,
+                            })
+                          )
+                        }>
+                        Remove Item
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -77,35 +115,25 @@ function ViewCart() {
               <p>Cart Total: {convertPennies(total)}</p>
             </div>
             <div>
-              <button className="button-60">Checkout</button>
+              <button
+                className="button-60"
+                onClick={() =>
+                  dispatch(
+                    updateOrder({ updated: quantities, orderId: cart.id })
+                  )
+                }>
+                Update Cart
+              </button>
+              <button
+                className="button-60"
+                onClick={() => dispatch(confirmOrder({ orderId: cart.id }))}>
+                Checkout
+              </button>
             </div>
           </div>
         </div>
       </div>
     );
-    // return (
-    //   <div>
-    //     <h3>Products in your cart</h3>
-    //     <div className="allProd">
-    //       {products.map((current) => {
-    //         return (
-    //           <div className="singleProduct" key={current.id}>
-    //             <Link to={`/products/${current.id}`}>
-    //               <img src={current.imageUrl} width="190" height="225" />
-    //             </Link>
-    //             <div className="productInfo">
-    //               <div>
-    //                 <p>{current.name}</p>
-    //                 <p>${current.price}</p>
-    //               </div>
-    //               <button className="button-60">Add To Cart</button>
-    //             </div>
-    //           </div>
-    //         );
-    //       })}
-    //     </div>
-    //   </div>
-    // );
   }
 }
 

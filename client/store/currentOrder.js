@@ -29,6 +29,87 @@ export const fetchOrder = () => {
   };
 };
 
+export const addToOrder = (productIdQuantity) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem(TOKEN);
+      const addedProd = await axios.post(
+        '/api/orders/current',
+        productIdQuantity,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
+export const updateOrder = (orderDetails) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem(TOKEN);
+      await axios.put('/api/orders/current', orderDetails, {
+        headers: {
+          authorization: token,
+        },
+      });
+      const { data: newOrder } = await axios.get('/api/orders/current', {
+        headers: {
+          authorization: token,
+        },
+      });
+      dispatch(setCurrentOrder(newOrder));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+export const confirmOrder = (orderId) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem(TOKEN);
+      await axios.put('/api/orders/current?confirmed=true', orderId, {
+        headers: {
+          authorization: token,
+        },
+      });
+      const { data: newOrder } = await axios.get('/api/orders/current', {
+        headers: {
+          authorization: token,
+        },
+      });
+      dispatch(setCurrentOrder(newOrder));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+export const deleteOrder = (orderDetails) => {
+  return async (dispatch) => {
+    try {
+      const token = window.localStorage.getItem(TOKEN);
+      await axios.delete('/api/orders/current', {
+        headers: {
+          authorization: token,
+        },
+        data: orderDetails,
+      });
+      const { data: newOrder } = await axios.get('/api/orders/current', {
+        headers: {
+          authorization: token,
+        },
+      });
+      dispatch(setCurrentOrder(newOrder));
+    } catch (err) {
+      console.error(err);
+    }
+  };
+};
+
 export default function currentOrderReducer(state = {}, action) {
   switch (action.type) {
     case SET_CURRENT_ORDER:
