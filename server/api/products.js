@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {
-  models: { Product },
+  models: { Product, User },
 } = require('../db');
 
 router.get('/', async (req, res, next) => {
@@ -27,5 +27,52 @@ router.get('/:id', async (req, res, next) => {
     next(err);
   }
 });
+
+//adminOnly
+router.post('/', async (req, res, next) => {
+  try {
+    const possibleAdmin = await User.findByToken(req.headers.authorization)
+    if (possibleAdmin.isAdmin) {
+      res.send(await Product.create(req.body))
+    } else {
+      throw 'Not an Admin'
+    }
+  } catch (err) {
+    console.error(err);
+    next(err)
+  }
+})
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    const possibleAdmin = await User.findByToken(req.headers.authorization)
+    if (possibleAdmin.isAdmin) {
+      const product = await Product.findByPk(req.params.id)
+      res.send(await product.update(req.body))
+    } else {
+      throw 'Not an Admin'
+    }
+  } catch (err) {
+    console.error(err);
+    next(err)
+  }
+})
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const possibleAdmin = await User.findByToken(req.headers.authorization)
+    if (possibleAdmin.isAdmin) {
+      const product = await Product.findByPk(req.params.id)
+      console.log(product)
+      await product.destroy()
+      res.send(product)
+    } else {
+      throw 'Not an Admin'
+    }
+  } catch (err) {
+    console.error(err);
+    next(err)
+  }
+})
 
 module.exports = router;

@@ -6,6 +6,7 @@ import { addToOrder } from '../store/currentOrder';
 
 function SingleProduct() {
   const [inputValue, setInputValue] = useState('');
+  const isAdmin = useSelector((state) => state.auth.isAdmin);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchSingleProduct(params.productId));
@@ -26,6 +27,11 @@ function SingleProduct() {
         <img src={product.imageUrl} width="390" height="425" />
         <div className="singleProductInfo">
           <h2>{product.name}</h2>
+          {isAdmin && (
+            <Link to={`/admin/edit/${product.id}`}>
+              <button>Edit</button>
+            </Link>
+          )}
           <p>${product.price}</p>
           <form onSubmit={(e) => handleSubmit(e)}>
             <select
