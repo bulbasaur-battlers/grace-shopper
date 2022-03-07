@@ -14,6 +14,7 @@ export const setCurrentOrder = (order) => {
 export const fetchOrder = () => {
   return async (dispatch) => {
     try {
+      // o: something should likely happen when token is not found
       const token = window.localStorage.getItem(TOKEN);
       if (token) {
         const { data } = await axios.get('/api/orders/current', {
@@ -32,6 +33,7 @@ export const fetchOrder = () => {
 export const addToOrder = (productIdQuantity) => {
   return async (dispatch) => {
     try {
+      // o: something should likely happen when token is not found
       const token = window.localStorage.getItem(TOKEN);
       const addedProd = await axios.post(
         '/api/orders/current',
@@ -51,6 +53,7 @@ export const addToOrder = (productIdQuantity) => {
 export const updateOrder = (orderDetails) => {
   return async (dispatch) => {
     try {
+      // o: something should likely happen when token is not found
       const token = window.localStorage.getItem(TOKEN);
       await axios.put('/api/orders/current', orderDetails, {
         headers: {
@@ -71,6 +74,7 @@ export const updateOrder = (orderDetails) => {
 export const confirmOrder = (orderId) => {
   return async (dispatch) => {
     try {
+      // o: something should likely happen when token is not found
       const token = window.localStorage.getItem(TOKEN);
       await axios.put('/api/orders/current?confirmed=true', orderId, {
         headers: {
@@ -91,6 +95,7 @@ export const confirmOrder = (orderId) => {
 export const deleteOrder = (orderDetails) => {
   return async (dispatch) => {
     try {
+      // o: something should likely happen when token is not found
       const token = window.localStorage.getItem(TOKEN);
       await axios.delete('/api/orders/current', {
         headers: {

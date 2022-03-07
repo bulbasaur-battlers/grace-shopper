@@ -31,7 +31,10 @@ router.get('/:id', async (req, res, next) => {
 //adminOnly
 router.post('/', async (req, res, next) => {
   try {
+    // o: see my explanation on the orders.js file regarding req.user 
     const possibleAdmin = await User.findByToken(req.headers.authorization)
+
+    // o: you can make this into a middleware to prevent duplication of logic
     if (possibleAdmin.isAdmin) {
       res.send(await Product.create(req.body))
     } else {
@@ -45,7 +48,10 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
+    // o: see my explanation n the orders.js file regarding req.user
     const possibleAdmin = await User.findByToken(req.headers.authorization)
+
+    // o: see my explanation above regarding isAdmin
     if (possibleAdmin.isAdmin) {
       const product = await Product.findByPk(req.params.id)
       res.send(await product.update(req.body))
@@ -60,7 +66,10 @@ router.put('/:id', async (req, res, next) => {
 
 router.delete('/:id', async (req, res, next) => {
   try {
+    // o: see my explanation on the orders.js file regarding req.user
     const possibleAdmin = await User.findByToken(req.headers.authorization)
+
+    // o: see my explanation above regarding isAdmin
     if (possibleAdmin.isAdmin) {
       const product = await Product.findByPk(req.params.id)
       console.log(product)

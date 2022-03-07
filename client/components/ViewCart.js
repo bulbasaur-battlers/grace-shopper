@@ -7,6 +7,8 @@ import {
   deleteOrder,
 } from '../store/currentOrder';
 import { Link } from 'react-router-dom';
+
+// o: you went with pennies! :) ... so what's this logic below about?
 const convertPennies = (pennies) => {
   if (Math.floor(pennies / 100) === 0) {
     return pennies % 100 < 10 ? `00.0${pennies % 100}` : `00.${pennies % 100}`;

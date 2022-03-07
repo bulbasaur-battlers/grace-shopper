@@ -33,6 +33,7 @@ export const fetchProducts = () => {
 export const removeProduct = (Pid) => {
   return async (dispatch) => {
     try {
+      // o: something should likely happen when token is not found
       const token = window.localStorage.getItem(TOKEN)
       if (token) {
         const { data } = await axios.delete(`/api/products/${Pid}`, {

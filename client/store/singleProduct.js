@@ -41,6 +41,7 @@ export const fetchSingleProduct = (id) => {
 export const changeProduct = (product) => {
   return async (dispatch) => {
     try {
+      // o: something should likely happen when token is not found
       const token = window.localStorage.getItem(TOKEN)
       if (token) {
         //If anythings broken its here
@@ -60,6 +61,7 @@ export const changeProduct = (product) => {
 export const makeProduct = (product) => {
   return async (dispatch) => {
     try {
+      // o: something should likely happen when token is not found
       const token = window.localStorage.getItem(TOKEN)
       if (token) {
         const { data } = await axios.post('/api/products/', product, {

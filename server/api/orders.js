@@ -62,12 +62,22 @@ router.get('/current', async (req, res, next) => {
     next();
   }
 });
+
+// o: you can write this in its own module and import as needed
+// function loadUser(req, res, next) {
+//   req.user = await User.findByToken(req.headers.authorization);
+// }
+
 router.put('/current', async (req, res, next) => {
   try {
+    // o: I am seeing this logic duplicated in several places, this
+    //  can be made into a middleware, where you can store currUser within
+    //  req.body and retrieve it from there in other routes
     const currUser = await User.findByToken(req.headers.authorization);
     // IF CURRENT USER EXISTS
     if (currUser) {
       //CHECKING IF PURCHASE BUTTON WAS CLICKED
+      // o: can you explain the purpose of this conditional
       if (req.query.confirmed) {
         const { orderId } = req.body;
         const currOrder = await Order.findByPk(orderId, {
@@ -114,6 +124,7 @@ router.put('/current', async (req, res, next) => {
 router.delete('/current', async (req, res, next) => {
   try {
     const { orderId, productId } = req.body;
+    // o: see my explanation above regarding req.user
     const currUser = await User.findByToken(req.headers.authorization);
     const currOrder = await Order.findByPk(orderId, {
       where: {
@@ -131,6 +142,7 @@ router.delete('/current', async (req, res, next) => {
 
 router.get('/past', async (req, res, next) => {
   try {
+    // o: see my explanation above regarding req.user
     const currUser = await User.findByToken(req.headers.authorization);
     if (currUser) {
       // const pastOrders = await Order.findAll({
@@ -158,9 +170,12 @@ router.get('/past', async (req, res, next) => {
 
 router.get('/past/:id', async (req, res, next) => {
   try {
+    // o: see my explanation above regarding req.user
     const currUser = await User.findByToken(req.headers.authorization);
     if (currUser) {
       const orderId = req.params.id;
+
+      // o: also make sure you check for when order is NOT found
       const pastOrder = await Order.findByPk(orderId, {
         where: {
           userId: currUser.id,
