@@ -43,6 +43,7 @@ router.post('/current', async (req, res, next) => {
     }
   } catch (err) {
     console.error(err);
+    next();
   }
 });
 //TO SEE CURRENT CART
