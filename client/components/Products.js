@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchProducts } from '../store/products';
 import { Link } from 'react-router-dom'
+import { removeProduct } from '../store/products';
 
 function Product() {
     const dispatch = useDispatch();
+    const isAdmin = useSelector((state) => state.auth.isAdmin)
 
     useEffect(() => {
         dispatch(fetchProducts());
@@ -18,6 +20,11 @@ function Product() {
         return (
             <div>
                 <h3>Here are the Items</h3>
+                {isAdmin &&
+                    <Link to='/admin/addProduct'>
+                        <button className="add">Add Item</button>
+                    </Link>
+                }
                 <div className="allProd">
                     {products.map((current) => {
                         return (
@@ -30,13 +37,15 @@ function Product() {
                                         <p>{current.name}</p>
                                         <p>${current.price}</p>
                                     </div>
-                                    <button className="button-60">Add To Cart</button>
+                                    {isAdmin &&
+                                        <button className="del" type="submit" onClick={() => dispatch(removeProduct(current.id))}>Delete Item</button>
+                                    }
                                 </div>
                             </div>
                         );
                     })}
                 </div>
-            </div>
+            </div >
         );
     }
 }

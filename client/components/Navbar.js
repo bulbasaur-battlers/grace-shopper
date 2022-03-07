@@ -22,7 +22,7 @@ const Navbar = () => {
           {isLoggedIn ? (
             <div className="navContent">
               {/* The navbar will show these links after you log in */}
-              {isAdmin && <Link to="/users">All User Data</Link>}
+              {isAdmin && <Link to="/admin/users">All User Data</Link>}
               <Link to="/home">Home</Link>
               <a href="#" onClick={() => dispatch(logout())}>
                 Logout
