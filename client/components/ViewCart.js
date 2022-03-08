@@ -50,7 +50,7 @@ function ViewCart() {
   if (quantities.length === 0) {
     setQuantities({ initialQuantities });
   }
-  function handleDelete(orderid, productid) {
+  function handleDelete(orderid, productid, productname) {
     dispatch(
       deleteOrder({
         orderId: orderid,
@@ -58,10 +58,28 @@ function ViewCart() {
       })
     );
     setMyCart({ ...cart });
+    toast(`Removed ${productname} from cart!`, {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
   function handleUpdate(quantities, orderid) {
     dispatch(updateOrder({ updated: quantities, orderId: orderid }));
     setMyProducts([...cart.products]);
+    toast(`Updated cart!`, {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
 
   function handleCheckout(orderid) {
@@ -139,7 +157,9 @@ function ViewCart() {
                     </div>
                     <button
                       className="button-60"
-                      onClick={() => handleDelete(cart.id, current.id)}>
+                      onClick={() =>
+                        handleDelete(cart.id, current.id, current.name)
+                      }>
                       Remove Item
                     </button>
                   </div>
@@ -166,6 +186,17 @@ function ViewCart() {
             </div>
           </div>
         </div>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </div>
     );
   }
