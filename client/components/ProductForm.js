@@ -33,19 +33,19 @@ const ProductForm = () => {
             {error && error.response && <div> {error.response.data} </div>}
             <form className="formInputs" onSubmit={handleSubmit}>
                 <div>
-                    <label htmlFor="name">Product Name:</label>
+                    <label htmlFor="name">Product Name: </label>
                     <input id="name" name="name" onChange={handleChange} />
                 </div>
                 <div>
-                    <label htmlFor="pennies">Product Price in Pennies:</label>
+                    <label htmlFor="pennies">Product Price in Pennies: </label>
                     <input id="pennies" name="pennies" onChange={handleChange} />
                 </div>
                 <div>
-                    <label htmlFor="imageUrl">Image Url:</label>
+                    <label htmlFor="imageUrl">Image Url: </label>
                     <input id="imageUrl" name="imageUrl" onChange={handleChange} />
                 </div>
                 <div>
-                    <label htmlFor="description">Description:</label>
+                    <label htmlFor="description">Description: </label>
                     <textarea name="description" rows="4" cols="20" onChange={handleChange} />
                 </div>
 
