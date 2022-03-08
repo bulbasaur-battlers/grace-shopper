@@ -22,7 +22,7 @@ router.post('/current', async (req, res, next) => {
         const addedProd = await newOrder.addProduct(product.id, {
           through: { quantity: quantity },
         });
-        res.json(addedProd);
+        res.sendStatus(201);
       } else {
         if (await currOrder.hasProduct(product.id)) {
           const orderQuant = await OrderProduct.findOne({
@@ -32,12 +32,13 @@ router.post('/current', async (req, res, next) => {
             },
           });
           await orderQuant.update({ quantity: orderQuant.quantity + quantity });
+          res.sendStatus(201);
         } else {
           const addedProd = await currOrder.addProduct(product.id, {
             through: { quantity: quantity },
           });
 
-          res.json(addedProd);
+          res.sendStatus(201);
         }
       }
     }
@@ -103,6 +104,7 @@ router.put('/current', async (req, res, next) => {
             });
             await currOrderItem.update({ quantity: updated[key] });
           }
+          res.sendStatus(200);
         }
       }
     }
@@ -123,6 +125,7 @@ router.delete('/current', async (req, res, next) => {
     if (currUser.hasOrder(currOrder)) {
       currOrder.removeProduct(productId);
     }
+    res.sendStatus(204);
   } catch (err) {
     console.error(err);
     next(err);

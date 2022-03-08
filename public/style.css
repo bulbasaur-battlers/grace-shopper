@@ -49,7 +49,7 @@ input{
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-  width: 90%
+  width: 90%;
 }
 
 .navContent {
@@ -124,6 +124,7 @@ input{
   position: relative;
 }
 
+
 #navUsername {
   font-size: 45px;
   font-weight: 600;
@@ -136,7 +137,7 @@ input{
   justify-content: space-evenly;
   margin-left: auto;
   margin-right: auto;
-  width: 90%
+  width: 90%;
 }
 
 .singleProduct {
@@ -148,7 +149,7 @@ input{
   margin-right: 15px;
 }
 
-.frontDisplay{
+.frontDisplay {
   display: flex;
   justify-content: center;
 }
@@ -164,7 +165,7 @@ input{
   width: 33%;
 }
 
-.productPageTop{
+.productPageTop {
   margin-left: auto;
   margin-right: auto;
   width: 90%;
@@ -177,7 +178,7 @@ input{
   justify-content: space-around;
   margin-left: auto;
   margin-right: auto;
-  width: 90%
+  width: 90%;
 }
 
 .del{
@@ -187,17 +188,17 @@ input{
 .cartPage {
   margin-left: auto;
   margin-right: auto;
-  width: 90%
+  width: 90%;
 }
 
-.productForm{
-  display:flex;
+.productForm {
+  display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.formInputs{
-  display:flex;
+.formInputs {
+  display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
@@ -257,9 +258,12 @@ input{
   margin-left: 20px;
   margin-top: 40px;
 }
-/*
-CSS For cart page
-*/
+/*CSS For cart page*/
+.cartPage {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
 .cart-title {
   text-align: center;
 }
@@ -267,16 +271,99 @@ CSS For cart page
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  gap: 2rem;
 }
 .cart-items-container {
   display: flex;
   flex-direction: column;
-  flex-grow: 2;
+  flex-grow: 1;
+  gap: 0.5rem;
 }
-
+.cart-item-labels {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border: solid black;
+}
+.dummy-image {
+  width: 190;
+}
+.dummy-image a {
+  text-decoration: none;
+  color: white;
+}
 .cart-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  background-color: gray;
+  padding: 0.5rem;
+  border: solid black;
 }
+
+.cart-item-name {
+  display: flex;
+  align-items: center;
+  max-width: 150px;
+}
+
+.cart-item-price {
+  display: flex;
+  align-items: center;
+  max-width: 150px;
+}
+
+.cart-item-update {
+  display: flex;
+  align-items: center;
+  max-width: 150px;
+}
+.cart-item-update input {
+  text-align: right;
+  border: none;
+  border-bottom: 1px solid rgb(26, 25, 25);
+  width: 30px;
+}
+.cart-item-update input:focus {
+  outline: none;
+  text-align: right;
+  border: none;
+  border-bottom: 1px solid rgb(26, 25, 25);
+  background-color: lightblue;
+}
+.cart-item-total {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 150px;
+}
+.cart-item-total::before {
+  content: '';
+  height: 2.5em;
+}
+.text-right {
+  align-self: flex-end;
+}
+
+.cart-item-total button {
+  align-self: flex-end;
+}
+.cart-total-submit {
+  position: sticky;
+  top: 0;
+  border: 2px solid #1a1b1a;
+  max-height: 25vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1em;
+}
+.cart-button {
+  width: 100%;
+  border-radius: 0px;
+}
+.invisible {
+  visibility: hidden;
+}
+/*CSS For cart page*/

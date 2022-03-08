@@ -73,8 +73,28 @@ function ViewCart() {
     return (
       <div className="cartPage">
         <h3 className="cart-title">Products in your cart</h3>
+        <div className="cart-item-total-submit"></div>
         <div className="cart-container">
           <div className="cart-items-container">
+            <div className="cart-item-labels">
+              <div className="dummy-image">
+                <a href="https://archives.bulbagarden.net/media/upload/thumb/2/21/001Bulbasaur.png/600px-001Bulbasaur.png">
+                  Bulbasaur-Battlers
+                </a>
+              </div>
+              <div className="cart-item-names">
+                <p className="invisible">Bulbasaur Bulba</p>
+              </div>
+              <div className="cart-item-prices">
+                <p>Price</p>
+              </div>
+              <div className="cart-item-updates">
+                <p>Quantity</p>
+              </div>
+              <div className="cart-item-totals">
+                <p>Total</p>
+              </div>
+            </div>
             {products.map((current) => {
               return (
                 <div className="cart-item" key={current.id}>
@@ -83,25 +103,17 @@ function ViewCart() {
                       <img src={current.imageUrl} width="190" height="225" />
                     </Link>
                   </div>
-                  <div className="cart-item-info">
+                  <div className="cart-item-name">
                     <p>{current.name}</p>
+                  </div>
+                  <div className="cart-item-price">
                     <p>{current.price}</p>
                   </div>
                   <div className="cart-item-update">
                     <div>
-                      <p>
-                        Total:{' '}
-                        {convertPennies(
-                          current.pennies * current.orderproduct.quantity
-                        )}
-                      </p>
-                    </div>
-                    <div>
-                      {/* <p>Quantity: {current.orderproduct.quantity}</p> */}
                       <form>
                         <input
-                          type="number"
-                          min="1"
+                          type="text"
                           placeholder={current.orderproduct.quantity}
                           onChange={(e) =>
                             setQuantities({
@@ -109,20 +121,24 @@ function ViewCart() {
                               [current.id]: e.target.value,
                             })
                           }
-                          value={
-                            quantities[current.id] ||
-                            current.orderproduct.quantity
-                          }
+                          value={quantities[current.id] || ''}
                         />
                       </form>
                     </div>
-                    <div>
-                      <button
-                        className="button-60"
-                        onClick={() => handleDelete(cart.id, current.id)}>
-                        Remove Item
-                      </button>
+                  </div>
+                  <div className="cart-item-total">
+                    <div className="text-right">
+                      <p>
+                        {convertPennies(
+                          current.pennies * current.orderproduct.quantity
+                        )}
+                      </p>
                     </div>
+                    <button
+                      className="button-60"
+                      onClick={() => handleDelete(cart.id, current.id)}>
+                      Remove Item
+                    </button>
                   </div>
                 </div>
               );
@@ -130,16 +146,17 @@ function ViewCart() {
           </div>
           <div className="cart-total-submit">
             <div>
-              <p>Cart Total: {convertPennies(total)}</p>
+              <p>Subtotal</p>
+              <p>({convertPennies(total)})</p>
             </div>
             <div>
               <button
-                className="button-60"
+                className="button-60 cart-button"
                 onClick={() => handleUpdate(quantities, cart.id)}>
                 Update Cart
               </button>
               <button
-                className="button-60"
+                className="button-60 cart-button"
                 onClick={() => handleCheckout(cart.id)}>
                 Checkout
               </button>
