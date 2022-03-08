@@ -31,7 +31,13 @@ function Product() {
   let products = useSelector((state) => state.products);
 
   if (products.length === 0) {
-    return <h1>No Items To Sell!</h1>;
+    return (
+      <div className="status-box">
+        <div className="status-message">
+          <h1>Loading....</h1>
+        </div>
+      </div>
+    );
   } else {
     return (
       <div>

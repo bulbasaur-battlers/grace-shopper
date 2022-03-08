@@ -330,4 +330,19 @@ input {
 .invisible {
   visibility: hidden;
 }
-/*CSS For cart page*/
+/*CSS For cart page End*/
+.status-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.status-message {
+  padding: 3rem;
+  background-color: rgb(238, 239, 240);
+  border-radius: 0.5rem;
+  text-align: center;
+  width: 35%;
+  border: 0.2rem solid lightslategray;
+  position: absolute;
+  top: 35%;
+}

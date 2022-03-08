@@ -87,9 +87,23 @@ function ViewCart() {
     setSubmitStatus(true);
   }
   if (products.length === 0 && !submitStatus) {
-    return <h1>No Items In Cart</h1>;
+    return (
+      <div className="status-box">
+        <div className="status-message">
+          <h1>No Items In Cart</h1>
+          <Link to={`/products/`}>~Click here for our products~</Link>
+        </div>
+      </div>
+    );
   } else if (submitStatus) {
-    return <h1>Successfully checked out!</h1>;
+    return (
+      <div className="status-box">
+        <div className="status-message">
+          <h1>Thank you for Shopping at Store!</h1>
+          <Link to={`/products/`}>~Click here to shop for more~</Link>
+        </div>
+      </div>
+    );
   } else {
     return (
       <div className="cartPage">
