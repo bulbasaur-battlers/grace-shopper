@@ -46,7 +46,7 @@ function SingleProduct() {
               <option value="4">4</option>
               <option value="5">5</option>
             </select>
-            <input type="submit" value="Add To Cart" />
+            <input className="button-60" type="submit" value="Add To Cart" />
           </form>
           <div>
             <p>{addedMsg}</p>
