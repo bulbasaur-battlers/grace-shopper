@@ -7,6 +7,9 @@ import {
   deleteOrder,
 } from '../store/currentOrder';
 import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const convertPennies = (pennies) => {
   if (Math.floor(pennies / 100) === 0) {
     return pennies % 100 < 10 ? `00.0${pennies % 100}` : `00.${pennies % 100}`;
@@ -47,7 +50,7 @@ function ViewCart() {
   if (quantities.length === 0) {
     setQuantities({ initialQuantities });
   }
-  function handleDelete(orderid, productid) {
+  function handleDelete(orderid, productid, productname) {
     dispatch(
       deleteOrder({
         orderId: orderid,
@@ -55,10 +58,28 @@ function ViewCart() {
       })
     );
     setMyCart({ ...cart });
+    toast(`Removed ${productname} from cart!`, {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
   function handleUpdate(quantities, orderid) {
     dispatch(updateOrder({ updated: quantities, orderId: orderid }));
     setMyProducts([...cart.products]);
+    toast(`Updated cart!`, {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
 
   function handleCheckout(orderid) {
@@ -66,9 +87,23 @@ function ViewCart() {
     setSubmitStatus(true);
   }
   if (products.length === 0 && !submitStatus) {
-    return <h1>No Items In Cart</h1>;
+    return (
+      <div className="status-box">
+        <div className="status-message">
+          <h1>No Items In Cart</h1>
+          <Link to={`/products/`}>~Click here for our products~</Link>
+        </div>
+      </div>
+    );
   } else if (submitStatus) {
-    return <h1>Successfully checked out!</h1>;
+    return (
+      <div className="status-box">
+        <div className="status-message">
+          <h1>Thank you for Shopping at Store!</h1>
+          <Link to={`/products/`}>~Click here to shop for more~</Link>
+        </div>
+      </div>
+    );
   } else {
     return (
       <div className="cartPage">
@@ -136,7 +171,9 @@ function ViewCart() {
                     </div>
                     <button
                       className="button-60"
-                      onClick={() => handleDelete(cart.id, current.id)}>
+                      onClick={() =>
+                        handleDelete(cart.id, current.id, current.name)
+                      }>
                       Remove Item
                     </button>
                   </div>
@@ -163,6 +200,17 @@ function ViewCart() {
             </div>
           </div>
         </div>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </div>
     );
   }
