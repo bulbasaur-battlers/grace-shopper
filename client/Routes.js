@@ -40,7 +40,6 @@ const Routes = () => {
               <Route exact path="/admin/edit/:productId">
                 <EditProduct />
               </Route>
-              <Route path="/home" component={Home} />
               <Route path="/cart">
                 <ViewCart />
               </Route>
@@ -50,11 +49,10 @@ const Routes = () => {
               <Route exact path="/products/:productId">
                 <SingleProduct />
               </Route>
-              <Redirect to="/home" />
+              <Redirect to="/" />
             </Switch>
           }
           {/*Non Admin Routes*/}
-          <Route path="/home" component={Home} />
           <Route path="/cart">
             <ViewCart />
           </Route>
@@ -64,7 +62,7 @@ const Routes = () => {
           <Route exact path="/products/:productId">
             <SingleProduct />
           </Route>
-          <Redirect to="/home" />
+          <Redirect to="/" />
         </Switch>
       ) : (
         <Switch>
