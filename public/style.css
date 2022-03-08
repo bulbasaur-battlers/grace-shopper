@@ -346,3 +346,78 @@ input {
   position: absolute;
   top: 35%;
 }
+/*CSS For cart page*/
+
+/*CSS For single product page */
+
+#main-single-product-img {
+  margin-top: 20px;
+}
+
+#product-name-div {
+  display: flex;
+  align-items: center;
+}
+
+#edit-button {
+  margin-left: 10%;
+}
+
+#descriptor {
+  margin-top: 5%;
+}
+
+.single-product-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 33%;
+  min-height: 60%;
+}
+
+.single-item {
+  display: flex;
+  justify-content: space-around;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.rating-num {
+  margin-left: 10%;
+}
+
+.product-block {
+  display: flex;
+  flex-direction: column;
+  height: 25%;
+}
+
+.product-block p {
+  font-size: 35px;
+}
+
+.cart-add {
+  display: flex;
+  flex-direction: column;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+}
+
+.product-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-detail h2 {
+  text-decoration: underline;
+}
