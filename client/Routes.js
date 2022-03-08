@@ -2,7 +2,6 @@ import React, { Component, Fragment, useEffect } from 'react';
 import { connect, useSelector, useDispatch } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Login, Signup } from './components/AuthForm';
-import Home from './components/Home';
 import Product from './components/Products';
 import { me } from './store';
 import SingleProduct from './components/SingleProduct';
@@ -40,7 +39,6 @@ const Routes = () => {
               <Route exact path="/admin/edit/:productId">
                 <EditProduct />
               </Route>
-              <Route path="/home" component={Home} />
               <Route path="/cart">
                 <ViewCart />
               </Route>
@@ -50,11 +48,10 @@ const Routes = () => {
               <Route exact path="/products/:productId">
                 <SingleProduct />
               </Route>
-              <Redirect to="/home" />
+              <Redirect to="/" />
             </Switch>
           }
           {/*Non Admin Routes*/}
-          <Route path="/home" component={Home} />
           <Route path="/cart">
             <ViewCart />
           </Route>
@@ -64,7 +61,7 @@ const Routes = () => {
           <Route exact path="/products/:productId">
             <SingleProduct />
           </Route>
-          <Redirect to="/home" />
+          <Redirect to="/" />
         </Switch>
       ) : (
         <Switch>

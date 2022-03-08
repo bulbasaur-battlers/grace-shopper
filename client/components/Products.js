@@ -55,7 +55,7 @@ function Product() {
         <div className="productPageTop">
           {isAdmin && (
             <Link to="/admin/addProduct">
-              <button className="add">Add Item</button>
+              <button className="button-60">Add Item</button>
             </Link>
           )}
         </div>

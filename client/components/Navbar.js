@@ -18,16 +18,18 @@ const Navbar = () => {
             width="150"
             height="48"></img>
         </Link>
-        <div id="navUsername">{username}</div>
         <nav>
           {isLoggedIn ? (
             <div className="navContent">
               {/* The navbar will show these links after you log in */}
-              {isAdmin && <Link to="/admin/users">All User Data</Link>}
-              <Link to="/home">Home</Link>
-              <a href="#" onClick={() => dispatch(logout())}>
-                Logout
-              </a>
+              {isAdmin &&
+                <Link to="/admin/users">
+                  <button className="button-13" role="button"><span className="text">All Users</span></button>
+                </Link>
+              }
+
+              <button className="button-13" role="button" onClick={() => dispatch(logout())} ><span className="text">{`Logout ${username}`}</span></button>
+
               <Link to="/cart">
                 <img
                   src="https://media.istockphoto.com/vectors/shopping-cart-icon-isolated-on-white-background-vector-id1206806317?k=20&m=1206806317&s=612x612&w=0&h=waK8qOHV2Fgz2ntEWHWBQtXpNDAQ_wdhd4tkTUz6tfE="
@@ -38,8 +40,12 @@ const Navbar = () => {
           ) : (
             <div className="navContent">
               {/* The navbar will show these links before you log in */}
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
+              <Link to="/login">
+                <button className="button-13" role="button"><span className="text">Login</span></button>
+              </Link>
+              <Link to="/signup">
+                <button className="button-13" role="button"><span className="text">SignUp</span></button>
+              </Link>
               <Link to="/cart">
                 <img
                   src="https://media.istockphoto.com/vectors/shopping-cart-icon-isolated-on-white-background-vector-id1206806317?k=20&m=1206806317&s=612x612&w=0&h=waK8qOHV2Fgz2ntEWHWBQtXpNDAQ_wdhd4tkTUz6tfE="
