@@ -76,7 +76,7 @@ input{
   margin: 0;
   opacity: 1;
   outline: 0;
-  padding: 1.5em 2.2em;
+  padding: 1em 2em;
   position: relative;
   text-align: center;
   text-decoration: none;
@@ -110,7 +110,6 @@ input{
 .button-13:hover:before {
   animation: opacityFallbackIn 0s step-start forwards;
   clip-path: polygon(0 0, 101% 0, 101% 101%, 0 101%);
-  border-radius: 50px;
 }
 
 .button-13:after {
