@@ -49,8 +49,9 @@ input{
   align-items: center;
   margin-left: auto;
   margin-right: auto;
-  width: 90%;
+  width: 85%
 }
+
 
 .navContent {
   display: flex;
@@ -116,6 +117,7 @@ input{
   justify-content: space-around;
 }
 
+
 .singleItem {
   display: flex;
   justify-content: space-around;
@@ -123,6 +125,7 @@ input{
   margin-right: auto;
   width: 90%;
 }
+
 
 .del{
   color:lightcoral
@@ -191,10 +194,6 @@ input{
 
 .button-60:focus:not(:active) {
   box-shadow: rgba(72, 95, 199, 0.25) 0 0 0 0.125em;
-}
-
-#descriptor {
-  margin-top: 15%;
 }
 
 #SPbutton {
@@ -309,4 +308,79 @@ input{
 .invisible {
   visibility: hidden;
 }
-/*CSS For cart page*/
+
+
+/*CSS For Single Product Page*/
+
+#main-single-product-img {
+  margin-top: 20px;
+}
+
+#product-name-div {
+  display: flex;
+  align-items: center;
+}
+
+#edit-button{
+  margin-left: 10%;
+}
+
+#descriptor {
+  margin-top: 5%;
+}
+
+.single-product-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 33%;
+  min-height: 60%;
+}
+
+.single-item {
+  display: flex;
+  justify-content: space-around;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  max-width: 1200px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.rating-num {
+  margin-left: 10%;
+}
+
+.product-block {
+  display: flex;
+  flex-direction: column;
+  height: 25%;
+}
+
+.product-block p {
+  font-size: 35px;
+}
+
+.cart-add {
+display: flex;
+flex-direction: column;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+}
+
+.product-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-detail h2 {
+  text-decoration: underline;
+}
+
