@@ -4,6 +4,8 @@ import { fetchProducts } from '../store/products';
 import { Link } from 'react-router-dom';
 import { removeProduct } from '../store/products';
 import { addToOrder } from '../store/currentOrder';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Product() {
   const dispatch = useDispatch();
@@ -14,8 +16,17 @@ function Product() {
   }, []);
 
   const addToCartHandler = (product) => {
-    dispatch(addToOrder({ product, quantity: 1 }))
-  }
+    dispatch(addToOrder({ product, quantity: 1 }));
+    toast(`Added ${product.name} to cart!`, {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+  };
 
   let products = useSelector((state) => state.products);
 
@@ -24,6 +35,17 @@ function Product() {
   } else {
     return (
       <div>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
         <div className="productPageTop">
           {isAdmin && (
             <Link to="/admin/addProduct">
@@ -53,7 +75,11 @@ function Product() {
                       Delete Item
                     </button>
                   )}
-                  <button className="button-60" onClick={() => addToCartHandler(current)}>Add To Cart</button>
+                  <button
+                    className="button-60"
+                    onClick={() => addToCartHandler(current)}>
+                    Add To Cart
+                  </button>
                 </div>
               </div>
             );
