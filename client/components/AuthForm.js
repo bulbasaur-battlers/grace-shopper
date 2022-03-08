@@ -21,7 +21,7 @@ const AuthForm = ({ name, displayName }) => {
     dispatch(authenticate(username, password, email, formName))
   }
   return (
-    <div>
+    <div className="userDataPage">
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="username">
