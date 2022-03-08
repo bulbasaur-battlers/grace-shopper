@@ -18,7 +18,6 @@ const Navbar = () => {
             width="150"
             height="48"></img>
         </Link>
-        <div id="navUsername">{username}</div>
         <nav>
           {isLoggedIn ? (
             <div className="navContent">
@@ -26,7 +25,7 @@ const Navbar = () => {
               {isAdmin && <Link to="/admin/users">All User Data</Link>}
               <Link to="/home">Home</Link>
               <a href="#" onClick={() => dispatch(logout())}>
-                Logout
+                Logout ({username})
               </a>
               <Link to="/cart">
                 <img
