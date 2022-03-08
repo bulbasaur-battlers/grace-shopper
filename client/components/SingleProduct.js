@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams, Link } from "react-router-dom";
-import { fetchSingleProduct } from "../store/singleProduct";
-import { addToOrder } from "../store/currentOrder";
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams, Link } from 'react-router-dom';
+import { fetchSingleProduct } from '../store/singleProduct';
+import { addToOrder } from '../store/currentOrder';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SingleProduct() {
   const [inputValue, setInputValue] = useState(1);
-  const [addedMsg, setAddedMsg] = useState("");
+  const [addedMsg, setAddedMsg] = useState('');
   const isAdmin = useSelector((state) => state.auth.isAdmin);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -19,7 +21,15 @@ function SingleProduct() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(addToOrder({ product, quantity: +inputValue }));
-    setAddedMsg("Added to Cart!");
+    toast(`Added ${+inputValue} ${product.name} to cart!`, {
+      position: 'top-center',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }
 
   const randomRating = Math.floor(Math.random() * 300);
@@ -55,9 +65,9 @@ function SingleProduct() {
             <p>$ {product.price}</p>
           </div>
           <div className="cart-add">
-          <div>
-            <hr />
-          </div>
+            <div>
+              <hr />
+            </div>
             <div className="quantity">
               <span>Qty: </span>
               <form onSubmit={(e) => handleSubmit(e)}>
@@ -65,8 +75,7 @@ function SingleProduct() {
                   <select
                     name="quantity"
                     defaultValue={1}
-                    onChange={(e) => setInputValue(e.target.value)}
-                  >
+                    onChange={(e) => setInputValue(e.target.value)}>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -79,8 +88,7 @@ function SingleProduct() {
             <button
               className="button-60"
               type="button"
-              onClick={(e) => handleSubmit(e)}
-            >
+              onClick={(e) => handleSubmit(e)}>
               Add To Cart
             </button>
             <div>
@@ -88,18 +96,28 @@ function SingleProduct() {
             </div>
           </div>
           <div className="product-detail">
-          <div>
-            <hr />
+            <div>
+              <hr />
             </div>
             <div></div>
-          <h2>Product Detail</h2>
-          <p id="descriptor">{product.description}</p>
+            <h2>Product Detail</h2>
+            <p id="descriptor">{product.description}</p>
           </div>
         </div>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </div>
     );
   }
 }
 
 export default SingleProduct;
-
